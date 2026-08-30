@@ -357,20 +357,41 @@
 
     </div>
 
+    <!-- 交互脚本 -->
     <script>
+        var music = document.getElementById("bgm");
+        var btn = document.getElementById("musicToggleBtn");
+        var hasStarted = false; // 记录音乐是否已经通过全局点击被唤醒过
+
         function toggleMusic() {
-            var music = document.getElementById("bgm");
-            var btn = document.getElementById("musicToggleBtn");
             if (music.paused) {
                 music.play();
                 btn.style.color = "#ffcc00"; 
                 btn.style.borderColor = "#ffcc00";
+                hasStarted = true;
             } else {
                 music.pause();
                 btn.style.color = "#666";    
                 btn.style.borderColor = "#666";
             }
         }
+
+        // 【新增】全局点击监听：只要用户第一次在网页的任意地方点了一下，就自动播放音乐
+        document.addEventListener('click', function(event) {
+            if (!hasStarted && music.paused) {
+                // 如果点的是音乐按钮本身，就交给 toggleMusic 去处理，避免冲突
+                if (event.target === btn || btn.contains(event.target)) {
+                    return;
+                }
+                music.play().then(function() {
+                    btn.style.color = "#ffcc00"; 
+                    btn.style.borderColor = "#ffcc00";
+                    hasStarted = true;
+                }).catch(function(error) {
+                    // 浏览器若拦截则忽略
+                });
+            }
+        });
 
         function openEscapeModal() {
             document.getElementById("escapeModal").style.display = "flex";
