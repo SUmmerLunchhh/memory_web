@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>。..:: WE ARE FORGETTED ::..。。</title>
+    <style>
+        body {
+            font-family: "Courier New", Courier, monospace;
+            /* 改为相对路径 */
+            background: url("picture img/bg.jpg") repeat fixed #150000;
+            color: #ffcc00;
+            cursor: help;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        a { color: #ff9900; text-decoration: none; }
+        a:hover { color: #ff0000; background-color: #fff; font-weight: bold; }
+
+        @keyframes blink { 50% { opacity: 0; } }
+        .blink-text { animation: blink 1s infinite; color: red; font-weight: bold; }
+
+        /* 闪烁的红色十字架动画 */
+        @keyframes crossGlow {
+            0% { opacity: 0.2; text-shadow: 0 0 2px #ff0000; }
+            50% { opacity: 1; text-shadow: 0 0 15px #ff0000, 0 0 5px #550000; }
+            100% { opacity: 0.2; text-shadow: 0 0 2px #ff0000; }
+        }
+        .blinking-cross {
+            animation: crossGlow 0.8s infinite ease-in-out;
+            color: #cc0000;
+            font-size: 36px;
+            font-weight: bold;
+            user-select: none;
+        }
+
+        /* 音乐控制按钮 */
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            background-color: #1a0000;
+            color: #ffcc00;
+            border: 2px solid #882200;
+            padding: 8px 12px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 2px 2px 0px #550000;
+            font-family: "Courier New", Courier, monospace;
+        }
+        .music-btn:hover { background-color: #ffcc00; color: #000; }
+
+        /* ==================== 彻底打破列阵：动静结合、深度重叠的怪核背景图群 ==================== */
+        .weird-img {
+            position: absolute;
+            z-index: 1; 
+            opacity: 0.85;
+            pointer-events: none; 
+        }
+
+        /* 深褐色复古边框 */
+        .framed {
+            border: 2px solid #551100;
+            background-color: rgba(30, 5, 5, 0.9);
+            box-shadow: 4px 4px 0px #330000, -2px -2px 0px rgba(80, 20, 0, 0.5);
+        }
+
+        /* 无边框沉浸嵌入 */
+        .unframed {
+            border: none;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+        }
+
+        /* 左侧：交错图群 */
+        .img-l1  { top: -20px; left: -15px; width: 170px; transform: rotate(-35deg); z-index: 3; }
+        .img-l2  { top: 40px; left: 45px; width: 130px; transform: rotate(22deg); z-index: 5; }
+        .img-l3  { top: 120px; left: -25px; width: 210px; transform: rotate(-15deg); z-index: 2; }
+        .img-l4  { top: 220px; left: 30px; width: 140px; transform: rotate(45deg); z-index: 6; }
+        .img-l5  { top: 310px; left: -10px; width: 180px; transform: rotate(-8deg); z-index: 3; }
+        .img-l6  { top: 420px; left: 55px; width: 120px; transform: rotate(18deg); z-index: 4; }
+        .img-l7  { top: 530px; left: -20px; width: 200px; transform: rotate(-28deg); z-index: 5; }
+        .img-l8  { top: 650px; left: 35px; width: 150px; transform: rotate(12deg); z-index: 2; }
+        .img-l9  { top: 760px; left: -5px; width: 170px; transform: rotate(-42deg); z-index: 6; }
+        .img-l10 { top: 880px; left: 40px; width: 130px; transform: rotate(30deg); z-index: 3; }
+        .img-l11 { top: 990px; left: -20px; width: 190px; transform: rotate(-12deg); z-index: 4; }
+        .img-l12 { top: 1110px; left: 20px; width: 160px; transform: rotate(25deg); z-index: 5; }
+        .img-l13 { top: 1230px; left: -10px; width: 140px; transform: rotate(-20deg); z-index: 2; }
+
+        /* 右侧：交错图群 */
+        .img-r1  { top: -10px; right: -20px; width: 160px; transform: rotate(28deg); z-index: 4; }
+        .img-r2  { top: 60px; right: 40px; width: 140px; transform: rotate(-18deg); z-index: 2; }
+        .img-r3  { top: 150px; right: -10px; width: 200px; transform: rotate(35deg); z-index: 6; }
+        .img-r4  { top: 250px; right: 30px; width: 130px; transform: rotate(-25deg); z-index: 3; }
+        .img-r5  { top: 350px; right: -25px; width: 170px; transform: rotate(12deg); z-index: 5; }
+        .img-r6  { top: 460px; right: 50px; width: 150px; transform: rotate(-30deg); z-index: 2; }
+        .img-r7  { top: 570px; right: -15px; width: 210px; transform: rotate(20deg); z-index: 4; }
+        .img-r8  { top: 690px; right: 35px; width: 120px; transform: rotate(-15deg); z-index: 6; }
+        .img-r9  { top: 800px; right: -5px; width: 180px; transform: rotate(40deg); z-index: 3; }
+        .img-r10 { top: 920px; right: 45px; width: 140px; transform: rotate(-8deg); z-index: 5; }
+        .img-r11 { top: 1040px; right: -20px; width: 190px; transform: rotate(25deg); z-index: 2; }
+        .img-r12 { top: 1160px; right: 25px; width: 130px; transform: rotate(-35deg); z-index: 4; }
+        .img-r13 { top: 1280px; right: -10px; width: 160px; transform: rotate(15deg); z-index: 3; }
+        /* ========================================================================================= */
+
+        /* 赛博控制台主界面 */
+        .cyber-mainframe {
+            max-width: 880px;
+            margin: 0 auto;
+            border: 3px solid #661100;
+            background: rgba(15, 2, 2, 0.96);
+            box-shadow: 12px 12px 0px #440000, -6px -6px 0px rgba(50, 10, 0, 0.6);
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+            transform: rotate(-0.3deg);
+        }
+
+        /* 顶部系统状态栏 */
+        .cyber-header {
+            border-bottom: 2px dashed #883300;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #ff9900;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        /* 核心图展示区 */
+        .cyber-hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            border: 2px solid #772200;
+            padding: 12px;
+            background: #0a0101;
+            margin-bottom: 20px;
+            box-shadow: 5px 5px 0px #440000;
+        }
+
+        .cyber-hero-display {
+            text-align: center;
+        }
+        .cyber-hero-display img {
+            max-width: 100%;
+            height: auto;
+            max-height: 40vh;
+            border: 1px solid #aa2200;
+            display: block;
+        }
+
+        /* 不规则双栏面板 */
+        .cyber-grid-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .cyber-panel {
+            border: 2px dotted #771100;
+            padding: 15px;
+            background: rgba(25, 3, 3, 0.9);
+            font-size: 11px;
+            color: #ffcc00;
+            line-height: 1.6;
+            box-shadow: 4px 4px 0px #330000;
+        }
+
+        /* 终端状态一闪一换故障动画 */
+        @keyframes altState1 {
+            0%, 48% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        @keyframes altState2 {
+            0%, 48% { opacity: 0; }
+            50%, 100% { opacity: 1; }
+        }
+
+        /* ASCII 艺术图案 */
+        .ascii-art {
+            color: #00aa44;
+            font-size: 8px;
+            line-height: 9px;
+            white-space: pre;
+            overflow-x: auto;
+            margin: 10px 0;
+            background: #050101;
+            padding: 8px;
+            border: 1px dashed #006622;
+        }
+
+        /* 乱码文本 */
+        .glitch-text {
+            color: #ff3333;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        /* 跑马灯警告 */
+        .cyber-marquee {
+            background-color: #661100;
+            color: #ffcc00;
+            font-weight: bold;
+            padding: 6px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            border: 1px solid #992200;
+        }
+
+        /* 底部操作栏 */
+        .cyber-footer-bar {
+            border-top: 2px dashed #883300;
+            padding-top: 15px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        /* 纯全屏无边框图片弹窗 */
+        #escapeModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000000;
+            z-index: 99999;
+            justify-content: center;
+            align-items: center;
+        }
+        #escapeModal img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+            border: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgm" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+    <button class="music-btn" id="musicToggleBtn" onclick="toggleMusic()">♫</button>
+
+    <img src="picture img/9af7e924fb6ee89c5b883e904f1489ad.jpg" alt="" class="weird-img framed img-l1">
+    <img src="picture gif/66d2d1f85a52455c4ea34be73a07f4f5.gif" alt="" class="weird-img unframed img-l2">
+    <img src="picture img/55363ca464e0fe3bfebdc825a593a24b.jpg" alt="" class="weird-img framed img-l3">
+    <img src="picture img/c60080f5a48f9f8138d562cd38f09a49a5fe7bab_full.jpg" alt="" class="weird-img unframed img-l4">
+    <img src="picture gif/whoid.gif" alt="" class="weird-img framed img-l5">
+    <img src="picture img/04179196b656d21cad510edd80174d6e.jpg" alt="" class="weird-img unframed img-l6">
+    <img src="picture img/b0bde8d687d5eb09650513992efdb3d8.jpg" alt="" class="weird-img framed img-l7">
+    <img src="picture img/e785711be123e87594f776fe5c5a64b2.jpg" alt="" class="weird-img unframed img-l8">
+    <img src="picture img/9af7e924fb6ee89c5b883e904f1489ad.jpg" alt="" class="weird-img framed img-l9">
+    <img src="picture img/b553b844bf1f091cd8cbe0edbe351309.jpg" alt="" class="weird-img unframed img-l10">
+    <img src="picture img/55363ca464e0fe3bfebdc825a593a24b.jpg" alt="" class="weird-img framed img-l11">
+    <img src="picture img/04179196b656d21cad510edd80174d6e.jpg" alt="" class="weird-img unframed img-l12">
+    <img src="picture img/e785711be123e87594f776fe5c5a64b2.jpg" alt="" class="weird-img framed img-l13">
+
+    <img src="picture img/e785711be123e87594f776fe5c5a64b2.jpg" alt="" class="weird-img framed img-r1">
+    <img src="picture img/b0bde8d687d5eb09650513992efdb3d8.jpg" alt="" class="weird-img unframed img-r2">
+    <img src="picture gif/电子世界幻想 P1 天堂的呼吸_27775076733.gif" alt="" class="weird-img framed img-r3">
+    <img src="picture img/58ad5120decdc8dfb31ea06895f2b4ee.jpg" alt="" class="weird-img unframed img-r4">
+    <img src="picture img/c60080f5a48f9f8138d562cd38f09a49a5fe7bab_full.jpg" alt="" class="weird-img framed img-r5">
+    <img src="picture img/55363ca464e0fe3bfebdc825a593a24b.jpg" alt="" class="weird-img unframed img-r6">
+    <img src="picture img/b553b844bf1f091cd8cbe0edbe351309.jpg" alt="" class="weird-img framed img-r7">
+    <img src="picture img/9af7e924fb6ee89c5b883e904f1489ad.jpg" alt="" class="weird-img unframed img-r8">
+    <img src="picture gif/我_̛͊͒̾̕̚͠͡の大脳恠_͊͛̓̽͡_͊̉̕͝控_͛͒̕͞製_̛͐͊͠͝莪_̾͛̓͠ 莪_͒̕͞͝擺_̓͌͊͐脫_͒̓̚͡卟_̽͛͝͞_͊͐̕̚鋽_34788999262.gif" alt="" class="weird-img framed img-r9">
+    <img src="picture img/55363ca464e0fe3bfebdc825a593a24b.jpg" alt="" class="weird-img unframed img-r10">
+    <img src="picture img/04179196b656d21cad510edd80174d6e.jpg" alt="" class="weird-img framed img-r11">
+    <img src="picture img/b553b844bf1f091cd8cbe0edbe351309.jpg" alt="" class="weird-img unframed img-r12">
+    <img src="picture img/9af7e924fb6ee89c5b883e904f1489ad.jpg" alt="" class="weird-img framed img-r13">
+
+    <div id="escapeModal" onclick="closeEscapeModal()">
+        <img src="picture img/123626798_p0_master1200.jpg" alt="Escape Image">
+    </div>
+
+    <div class="cyber-mainframe">
+
+        <div class="cyber-header">
+            <span>[SYS_NODE: SUmmerLunch_Mind █▅▇█]</span>
+            <span class="blink-text">WARNING: ▓▒░ NEURAL OVERRIDE DETECTED ░▒▓</span>
+            <span>PROTO: LAIN_#04[err]</span>
+        </div>
+
+        <div class="cyber-hero-container">
+            <div class="blinking-cross">†</div>
+            <div class="cyber-hero-display">
+                <img src="picture img/55363ca464e0fe3bfebdc825a593a24b.jpg" alt="ANGEL">
+            </div>
+            <div class="blinking-cross">†</div>
+        </div>
+
+        <marquee scrollamount="20" class="cyber-marquee">
+            WARNING：NOTHING HERE —— leave —— █▇▆  [ERROR_404] —— No more watching —— WE ARE FORGETTED ——
+        </marquee>
+
+        <div class="cyber-grid-row">
+            <div class="cyber-panel">
+                <strong>&gt;&gt; MEMORY_LOG_01: <span class="glitch-text">█▇▆▅_CORRUPT</span></strong><br>
+                Why are you here??? What are you looking for？Safe? Or <span style="color: #ff0000; font-size: 15px;">DANGEROUS ▓▒░</span>?<br>
+                <div class="ascii-art">
+             .-'""'-.     
+           .'        '.   
+          /   _    _   \  
+         |   (+)  _#-   |  
+         |      /\      +  
+          \    \__/    /   
+           #        .'    
+             '-....-'      
+            // || \\       
+           //  ||  \\      
+          //   ||   \\
+          [hello?<span style="color: #ff0202;">??</span>??] 
+                </div>
+            </div>
+
+            <div class="cyber-panel">
+                <strong>&gt;&gt; SYSTEM_DIAGNOSTIC: <span class="glitch-text">░▒▓█_FAIL</span></strong><br>
+                <span class="blink-text">●●● Unknown error 404 [Errno 99] ●●●</span><br>
+                The boundary between physical reality and the wired network is dissolving █▅▇.<br>
+                
+                <div style="font-family: monospace; margin-top: 5px; position: relative; height: 3.2em;">
+                    <div style="position: absolute; width: 100%; animation: altState1 2.2s infinite steps(1);">
+                        [FILE] bg.jpg .......... OK [99%]<br>
+                        [FILE] music.mp3 ....... ACTIVE<br>
+                        [CORE] link_status ..... <span style="color:#ff9900;" class="glitch-text">UNSTABLE █▓▒</span>
+                    </div>
+                    <div style="position: absolute; width: 100%; opacity: 0; animation: altState2 2.2s infinite steps(1);">
+                        [FILE] bg.jpg .......... <span style=color:#ff0000;" class="glitch-text">RUN[#$%]</span><br>
+                        [FILE] music.mp3 ....... <span style=color:#ff0000;" class="glitch-text">NOW</span><br>
+                        [CORE] link_status ..... <span style="color:#f50000;" class="glitch-text">!?!█▓▒</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cyber-footer-bar">
+            <h5>- For more -</h5>
+            <a href="https://fauux.neocities.org/" target="_blank">Wired</a> | 
+            <a href="javascript:void(0);" onclick="openEscapeModal()" style="color: #00ff66; font-weight: bold; font-size: 16px;">ESCApE</a> | 
+            <a href="mailto:summerlunch17@gmail.com">Send me email</a>
+            
+            <div style="margin-top: 15px; font-size: 11px; color: #884422;">
+                We all love <span style="color: #cc0372;">lain</span>. Let's all love lain.
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleMusic() {
+            var music = document.getElementById("bgm");
+            var btn = document.getElementById("musicToggleBtn");
+            if (music.paused) {
+                music.play();
+                btn.style.color = "#ffcc00"; 
+                btn.style.borderColor = "#ffcc00";
+            } else {
+                music.pause();
+                btn.style.color = "#666";    
+                btn.style.borderColor = "#666";
+            }
+        }
+
+        function openEscapeModal() {
+            document.getElementById("escapeModal").style.display = "flex";
+        }
+
+        function closeEscapeModal() {
+            document.getElementById("escapeModal").style.display = "none";
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeEscapeModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
