@@ -168,7 +168,6 @@
             50%, 100% { opacity: 1; }
         }
 
-        /* 恢复你原本带绿色虚线框的 ASCII 容器，并支持内部左右并排 */
         .ascii-art {
             color: #00aa44;
             font-size: 8px;
@@ -185,7 +184,6 @@
             gap: 15px;
         }
 
-        /* 圣母图直接融入虚线框右侧，不加任何多余的外框 */
         .inline-madonna {
             max-height: 130px;
             width: auto;
@@ -216,6 +214,17 @@
             padding-top: 15px;
             text-align: center;
             font-size: 12px;
+        }
+
+        /* confessional 样式：默认黑色字体，悬停时变白底红字 */
+        .confessional-link {
+            color: #000000 !important;
+            background-color: rgba(255, 153, 0, 0.3);
+            padding: 0 4px;
+        }
+        .confessional-link:hover {
+            color: #ff0000 !important;
+            background-color: #fff;
         }
 
         #escapeModal {
@@ -303,20 +312,18 @@
                 <strong>&gt;&gt; MEMORY_LOG_01: <span class="glitch-text">█▇▆▅_CORRUPT</span></strong><br>
                 Why are you here??? What are you looking for？Safe? Or <span style="color: #ff0000; font-size: 15px;">DANGEROUS ▓▒░</span>?<br>
                 
-                <!-- 在原本的绿框（ascii-art）内部左右并排：左边是文字，右边直接放圣母图 -->
                 <div class="ascii-art">
-                    <div>      
-              .-'""'-.     
+                    <div>      .-'""'-.     
             .'         '.    
-           /   _    _    \  
-          |   (+)  _#-   |  
+           /    _    _    \  
+          |    (+)  _#-    |  
           |      /\      +  
            \    \__/    /    
             #         .'     
               '-....-'       
              // || \\        
             //  ||  \\       
-           //   ||   \\
+            //   ||   \\
          [Does it worth<span style="color: #ff0202;">??</span>??] </div>
                     <img src="picture img/961515aa42a82369047739bf4a143fc7.png" alt="Cyber Madonna" class="inline-madonna">
                 </div>
@@ -346,6 +353,7 @@
             <h5>- For more -</h5>
             <a href="https://fauux.neocities.org/" target="_blank">Wired</a> | 
             <a href="javascript:void(0);" onclick="openEscapeModal()" style="color: #00ff66; font-weight: bold; font-size: 16px;">ESCApE</a> | 
+            <a href="https://summerlunch17.github.io/heaven/" class="confessional-link" target="_blank">confessional</a> | 
             <a href="mailto:summerlunch17@gmail.com">Send me email</a>
             
             <div style="margin-top: 15px; font-size: 11px; color: #884422;">
