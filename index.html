@@ -168,34 +168,31 @@
             50%, 100% { opacity: 1; }
         }
 
-        /* 原本的绿色虚线框容器，现在改为内部左右并排布局 */
-        .ascii-art-container {
-            background: #050101;
-            padding: 8px;
-            border: 1px dashed #006622;
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
+        /* 恢复你原本带绿色虚线框的 ASCII 容器，并支持内部左右并排 */
         .ascii-art {
             color: #00aa44;
             font-size: 8px;
             line-height: 9px;
             white-space: pre;
             overflow-x: auto;
-            flex: 1.2;
-            margin: 0;
+            margin: 10px 0;
+            background: #050101;
+            padding: 8px;
+            border: 1px dashed #006622;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
         }
 
-        .inline-madonna-img {
-            flex: 1;
-            max-width: 100%;
+        /* 圣母图直接融入虚线框右侧，不加任何多余的外框 */
+        .inline-madonna {
+            max-height: 130px;
+            width: auto;
             height: auto;
-            display: block;
-            border: 1px solid #004411;
-            filter: drop-shadow(0 0 5px rgba(0,255,100,0.15));
+            display: inline-block;
+            filter: drop-shadow(0 0 6px rgba(0,255,100,0.2));
+            border: none;
         }
 
         .glitch-text {
@@ -306,23 +303,22 @@
                 <strong>&gt;&gt; MEMORY_LOG_01: <span class="glitch-text">█▇▆▅_CORRUPT</span></strong><br>
                 Why are you here??? What are you looking for？Safe? Or <span style="color: #ff0000; font-size: 15px;">DANGEROUS ▓▒░</span>?<br>
                 
-                <!-- 保持原本的绿色虚线框不变，内部左边是字符画，右边直接并排塞入圣母图 -->
-                <div class="ascii-art-container">
-                    <div class="ascii-art">
-             .-'""'-.     
-           .'        '.   
-          /   _    _   \  
-         |   (+)  _#-   |  
-         |      /\      +  
-          \    \__/    /   
-           #         .'    
-             '-....-'      
-            // || \\       
-           //  ||  \\      
-          //   ||   \\
-          [Does it worth?<span style="color: #ff0202;">??</span>??] 
-                    </div>
-                    <img src="picture img/961515aa42a82369047739bf4a143fc7.png" alt="Cyber Madonna" class="inline-madonna-img">
+                <!-- 在原本的绿框（ascii-art）内部左右并排：左边是文字，右边直接放圣母图 -->
+                <div class="ascii-art">
+                    <div>      
+              .-'""'-.     
+            .'         '.    
+           /   _    _    \  
+          |   (+)  _#-   |  
+          |      /\      +  
+           \    \__/    /    
+            #         .'     
+              '-....-'       
+             // || \\        
+            //  ||  \\       
+           //   ||   \\
+         [Does it worth<span style="color: #ff0202;">??</span>??] </div>
+                    <img src="picture img/961515aa42a82369047739bf4a143fc7.png" alt="Cyber Madonna" class="inline-madonna">
                 </div>
             </div>
 
@@ -407,5 +403,3 @@
 
 </body>
 </html>
-
-```
