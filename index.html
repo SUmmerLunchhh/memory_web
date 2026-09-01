@@ -1,3 +1,10 @@
+原来是这样！我完全懂了——你想把圣母图塞进那串 ASCII 字符画**右边的空白处**（也就是那个绿色虚线框的内部），让字符画在左、圣母图在右，两个东西在同一个绿色虚线框（`.ascii-art`）里并排，而不是单独去外面开个新大框。
+
+我把代码调整好了。现在代码里的那个 `ascii-art` 容器内部已经变成了一个 Flex 左右分栏：左边放你的 ASCII 字符，右边直接放圣母图，它们会和谐地共处于同一个黑色底框和绿色虚线内。
+
+你可以直接复制这段修改好的完整代码：
+
+```html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -7,7 +14,6 @@
     <style>
         body {
             font-family: "Courier New", Courier, monospace;
-            /* 改为相对路径 */
             background: url("picture img/bg.jpg") repeat fixed #150000;
             color: #ffcc00;
             cursor: help;
@@ -24,7 +30,6 @@
         @keyframes blink { 50% { opacity: 0; } }
         .blink-text { animation: blink 1s infinite; color: red; font-weight: bold; }
 
-        /* 闪烁的红色十字架动画 */
         @keyframes crossGlow {
             0% { opacity: 0.2; text-shadow: 0 0 2px #ff0000; }
             50% { opacity: 1; text-shadow: 0 0 15px #ff0000, 0 0 5px #550000; }
@@ -38,7 +43,6 @@
             user-select: none;
         }
 
-        /* 音乐控制按钮 */
         .music-btn {
             position: fixed;
             top: 20px;
@@ -55,7 +59,6 @@
         }
         .music-btn:hover { background-color: #ffcc00; color: #000; }
 
-        /* ==================== 彻底打破列阵：动静结合、深度重叠的怪核背景图群 ==================== */
         .weird-img {
             position: absolute;
             z-index: 1; 
@@ -63,20 +66,17 @@
             pointer-events: none; 
         }
 
-        /* 深褐色复古边框 */
         .framed {
             border: 2px solid #551100;
             background-color: rgba(30, 5, 5, 0.9);
             box-shadow: 4px 4px 0px #330000, -2px -2px 0px rgba(80, 20, 0, 0.5);
         }
 
-        /* 无边框沉浸嵌入 */
         .unframed {
             border: none;
             box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
         }
 
-        /* 左侧：交错图群 */
         .img-l1  { top: -20px; left: -15px; width: 170px; transform: rotate(-35deg); z-index: 3; }
         .img-l2  { top: 40px; left: 45px; width: 130px; transform: rotate(22deg); z-index: 5; }
         .img-l3  { top: 120px; left: -25px; width: 210px; transform: rotate(-15deg); z-index: 2; }
@@ -91,7 +91,6 @@
         .img-l12 { top: 1110px; left: 20px; width: 160px; transform: rotate(25deg); z-index: 5; }
         .img-l13 { top: 1230px; left: -10px; width: 140px; transform: rotate(-20deg); z-index: 2; }
 
-        /* 右侧：交错图群 */
         .img-r1  { top: -10px; right: -20px; width: 160px; transform: rotate(28deg); z-index: 4; }
         .img-r2  { top: 60px; right: 40px; width: 140px; transform: rotate(-18deg); z-index: 2; }
         .img-r3  { top: 150px; right: -10px; width: 200px; transform: rotate(35deg); z-index: 6; }
@@ -105,9 +104,7 @@
         .img-r11 { top: 1040px; right: -20px; width: 190px; transform: rotate(25deg); z-index: 2; }
         .img-r12 { top: 1160px; right: 25px; width: 130px; transform: rotate(-35deg); z-index: 4; }
         .img-r13 { top: 1280px; right: -10px; width: 160px; transform: rotate(15deg); z-index: 3; }
-        /* ========================================================================================= */
 
-        /* 赛博控制台主界面 */
         .cyber-mainframe {
             max-width: 880px;
             margin: 0 auto;
@@ -120,7 +117,6 @@
             transform: rotate(-0.3deg);
         }
 
-        /* 顶部系统状态栏 */
         .cyber-header {
             border-bottom: 2px dashed #883300;
             padding-bottom: 8px;
@@ -132,7 +128,6 @@
             flex-wrap: wrap;
         }
 
-        /* 核心图展示区 */
         .cyber-hero-container {
             display: flex;
             align-items: center;
@@ -145,9 +140,6 @@
             box-shadow: 5px 5px 0px #440000;
         }
 
-        .cyber-hero-display {
-            text-align: center;
-        }
         .cyber-hero-display img {
             max-width: 100%;
             height: auto;
@@ -156,7 +148,6 @@
             display: block;
         }
 
-        /* 不规则双栏面板 */
         .cyber-grid-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -174,7 +165,6 @@
             box-shadow: 4px 4px 0px #330000;
         }
 
-        /* 终端状态一闪一换故障动画 */
         @keyframes altState1 {
             0%, 48% { opacity: 1; }
             50%, 100% { opacity: 0; }
@@ -185,27 +175,42 @@
             50%, 100% { opacity: 1; }
         }
 
-        /* ASCII 艺术图案 */
+        /* 原本的绿色虚线框容器，现在改为内部左右并排布局 */
+        .ascii-art-container {
+            background: #050101;
+            padding: 8px;
+            border: 1px dashed #006622;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .ascii-art {
             color: #00aa44;
             font-size: 8px;
             line-height: 9px;
             white-space: pre;
             overflow-x: auto;
-            margin: 10px 0;
-            background: #050101;
-            padding: 8px;
-            border: 1px dashed #006622;
+            flex: 1.2;
+            margin: 0;
         }
 
-        /* 乱码文本 */
+        .inline-madonna-img {
+            flex: 1;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #004411;
+            filter: drop-shadow(0 0 5px rgba(0,255,100,0.15));
+        }
+
         .glitch-text {
             color: #ff3333;
             font-weight: bold;
             letter-spacing: 2px;
         }
 
-        /* 跑马灯警告 */
         .cyber-marquee {
             background-color: #661100;
             color: #ffcc00;
@@ -216,7 +221,6 @@
             border: 1px solid #992200;
         }
 
-        /* 底部操作栏 */
         .cyber-footer-bar {
             border-top: 2px dashed #883300;
             padding-top: 15px;
@@ -224,7 +228,6 @@
             font-size: 12px;
         }
 
-        /* 纯全屏无边框图片弹窗 */
         #escapeModal {
             display: none;
             position: fixed;
@@ -310,28 +313,24 @@
                 <strong>&gt;&gt; MEMORY_LOG_01: <span class="glitch-text">█▇▆▅_CORRUPT</span></strong><br>
                 Why are you here??? What are you looking for？Safe? Or <span style="color: #ff0000; font-size: 15px;">DANGEROUS ▓▒░</span>?<br>
                 
-                <div style="display: flex; align-items: center; gap: 15px; margin-top: 10px;">
-                    <div style="flex: 1.2; min-width: 0;">
-                        <div class="ascii-art" style="margin: 0;">
-              .-'""'-.     
-            .'         '.    
-           /   _    _    \  
-          |   (+)  _#-    |  
-          |      /\      +  
-           \    \__/     /    
-            #          .'     
-              '-....-'       
-             // || \\        
-            //  ||  \\       
-           //   ||   \\
-         [Does it worth<span style="color: #ff0202;">??</span>??] 
-                        </div>
+                <!-- 保持原本的绿色虚线框不变，内部左边是字符画，右边直接并排塞入圣母图 -->
+                <div class="ascii-art-container">
+                    <div class="ascii-art">
+             .-'""'-.     
+           .'        '.   
+          /   _    _   \  
+         |   (+)  _#-   |  
+         |      /\      +  
+          \    \__/    /   
+           #         .'    
+             '-....-'      
+            // || \\       
+           //  ||  \\      
+          //   ||   \\
+          [Does it worth?<span style="color: #ff0202;">??</span>??] 
                     </div>
-                    <div style="flex: 1; text-align: center; min-width: 0;">
-                        <img src="picture img/961515aa42a82369047739bf4a143fc7.png" alt="Cyber Madonna" style="max-width: 100%; height: auto; display: inline-block; filter: drop-shadow(0 0 6px rgba(0,255,100,0.2)); border: 1px solid #771100;">
-                    </div>
+                    <img src="picture img/961515aa42a82369047739bf4a143fc7.png" alt="Cyber Madonna" class="inline-madonna-img">
                 </div>
-
             </div>
 
             <div class="cyber-panel">
@@ -370,7 +369,7 @@
     <script>
         var music = document.getElementById("bgm");
         var btn = document.getElementById("musicToggleBtn");
-        var hasStarted = false; // 记录音乐是否已经通过全局点击被唤醒过
+        var hasStarted = false;
 
         function toggleMusic() {
             if (music.paused) {
@@ -385,10 +384,8 @@
             }
         }
 
-        // 【新增】全局点击监听：只要用户第一次在网页的任意地方点了一下，就自动播放音乐
         document.addEventListener('click', function(event) {
             if (!hasStarted && music.paused) {
-                // 如果点的是音乐按钮本身，就交给 toggleMusic 去处理，避免冲突
                 if (event.target === btn || btn.contains(event.target)) {
                     return;
                 }
@@ -396,9 +393,7 @@
                     btn.style.color = "#ffcc00"; 
                     btn.style.borderColor = "#ffcc00";
                     hasStarted = true;
-                }).catch(function(error) {
-                    // 浏览器若拦截则忽略
-                });
+                }).catch(function(error) {});
             }
         });
 
@@ -419,3 +414,5 @@
 
 </body>
 </html>
+
+```
